@@ -21,7 +21,7 @@ class Post extends React.Component {
     });
   };
   render() {
-    const { id, title, body, editBlogHandler } = this.props;
+    const { id, title, body, editPostHandler, deletePost } = this.props;
     const { editing } = this.state;
     return (
       <Segment>
@@ -31,7 +31,8 @@ class Post extends React.Component {
             id={id}
             title={title}
             body={body}
-            editBlogHandler={editBlogHandler}
+            editPostHandler={editPostHandler}
+            toggleEditProp={this.toggleEdit}
           />
         ) : (
           <div>
@@ -43,7 +44,7 @@ class Post extends React.Component {
           <Button onClick={this.toggleEdit}>
             <Icon color="blue" name="pencil" />
           </Button>
-          <Button>
+          <Button onClick={() => deletePost(id)}>
             <Icon color="red" name="trash" />
           </Button>
         </div>

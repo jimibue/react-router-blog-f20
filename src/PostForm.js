@@ -19,10 +19,11 @@ class PostForm extends React.Component {
     if (this.props.id) {
       // how do I pass the id here?
 
-      this.props.editBlogHandler({ ...this.state, id: this.props.id });
+      this.props.editPostHandler({ ...this.state, id: this.props.id });
+      this.props.toggleEditProp();
       return;
     }
-    this.props.addBlogHandler(this.state);
+    this.props.addPostHandler(this.state);
 
     // clear form
   };

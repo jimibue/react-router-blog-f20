@@ -13,7 +13,7 @@ class Blog extends React.Component {
   };
 
   //post is going to look like this {title: "asdf", body: "asdfasdf"}
-  addBlog = (post) => {
+  addPost = (post) => {
     // generate a fake id.
     const newPost = { ...post, id: Math.random() + "" };
     this.setState({
@@ -24,7 +24,7 @@ class Blog extends React.Component {
   // expecting = {id:1,title:'asd',body:'updated'}
   // editing/reading = map
   // deleting => filter
-  editBlog = (updatedPost) => {
+  editPost = (updatedPost) => {
     const newPosts = this.state.posts.map((post) => {
       if (post.id === updatedPost.id) {
         return updatedPost;
@@ -37,9 +37,24 @@ class Blog extends React.Component {
     });
   };
 
+  // expecting the id of post to delete
+  // remove => filter
+  deletePost = (postId) => {
+    console.log(postId);
+    const filteredPosts = this.state.posts.filter((p) => p.id !== postId);
+    this.setState({
+      posts: filteredPosts,
+    });
+  };
+
   renderPosts() {
     return this.state.posts.map((p) => (
-      <Post key={p.id} {...p} editBlogHandler={this.editBlog} />
+      <Post
+        key={p.id}
+        {...p}
+        editPostHandler={this.editPost}
+        deletePost={this.deletePost}
+      />
     ));
   }
 
@@ -47,7 +62,7 @@ class Blog extends React.Component {
     return (
       <div>
         <Header as="h2">Blog</Header>
-        <PostForm addBlogHandler={this.addBlog} />
+        <PostForm addPostHandler={this.addPost} />
         {this.renderPosts()}
       </div>
     );
