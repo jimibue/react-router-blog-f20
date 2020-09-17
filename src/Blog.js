@@ -9,8 +9,6 @@ class Blog extends React.Component {
       { id: 1, title: "React", body: "best component library" },
       { id: 2, title: "React Routes", body: "best router library" },
       { id: 3, title: "Tacos", body: "best food" },
-      { id: 0.23475892374598, title: "Tacos", body: "best food" },
-      { id: "0.23475892374ee598", title: "Tacos", body: "best food" },
     ],
   };
 
@@ -23,8 +21,26 @@ class Blog extends React.Component {
     });
   };
 
+  // expecting = {id:1,title:'asd',body:'updated'}
+  // editing/reading = map
+  // deleting => filter
+  editBlog = (updatedPost) => {
+    const newPosts = this.state.posts.map((post) => {
+      if (post.id === updatedPost.id) {
+        return updatedPost;
+      }
+      return post;
+    });
+
+    this.setState({
+      posts: newPosts,
+    });
+  };
+
   renderPosts() {
-    return this.state.posts.map((p) => <Post key={p.id} {...p} />);
+    return this.state.posts.map((p) => (
+      <Post key={p.id} {...p} editBlogHandler={this.editBlog} />
+    ));
   }
 
   render() {

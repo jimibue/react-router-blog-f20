@@ -3,12 +3,27 @@ import { Form } from "semantic-ui-react";
 
 class PostForm extends React.Component {
   state = { title: "", body: "" };
+  componentDidMount() {
+    if (this.props.id) {
+      this.setState({
+        title: this.props.title,
+        body: this.props.body,
+      });
+    }
+  }
   handleSubmitX = (e) => {
     // e.preventDefault();
     console.log(this.state);
     // add the post(this.state) to state in blog
     console.log(this);
+    if (this.props.id) {
+      // how do I pass the id here?
+
+      this.props.editBlogHandler({ ...this.state, id: this.props.id });
+      return;
+    }
     this.props.addBlogHandler(this.state);
+
     // clear form
   };
   handleChangeX = (e) => {
